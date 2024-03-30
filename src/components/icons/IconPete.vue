@@ -5,7 +5,6 @@
             y="0px"
             viewBox="0 0 2000 2000"
             xml:space="preserve"
-            :style="{ backgroundColor: backgroundColour, color: foregroundColour }"
         >
             <g>
                 <path

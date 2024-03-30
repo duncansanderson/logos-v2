@@ -1,0 +1,21 @@
+<template>
+    <svg
+        width="17"
+        height="18"
+        viewBox="0 0 17 18"
+        stroke="red"
+    >
+        <line
+            x1="2.6"
+            y1="14.9"
+            x2="14.4"
+            y2="3.1"
+        ></line>
+        <line
+            x1="14.4"
+            y1="14.9"
+            x2="2.6"
+            y2="3.1"
+        ></line>
+    </svg>
+</template>

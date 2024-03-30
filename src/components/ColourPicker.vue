@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { COLOURS } from '../constants';
 import { useColourStore } from '@/stores/colour';
 import ColourButton from './ColourButton.vue';
+import ColourContrast from './ColourContrast.vue';
 
 const store = useColourStore();
 
@@ -52,32 +53,7 @@ function updateForegroundColour(colour: string) {
                 </template>
             </div>
         </div>
-        <!-- <div class="colour-contrast" v-if="sharedState.backgroundColourHex != 'transparent'">
-            <div class="colour-contrast__label">Colour contrast</div>
-            <div class="colour-contrast__ratio">
-                <div class="ratio__value">{{ sharedState.contrastRatio }}</div>
-                <div class="ratio__small">
-                    <svg v-if="sharedState.readabilityTests[1].result" width="17px" height="18px" viewBox="0 0 17 18" stroke="green">
-                        <polyline points="2.8,9.4 6.5,14.1 14.2,3.3 " fill="none"></polyline>
-                    </svg>
-                    <svg v-else width="17" height="18" viewBox="0 0 17 18" stroke="red">
-                        <line x1="2.6" y1="14.9" x2="14.4" y2="3.1"></line>
-                        <line x1="14.4" y1="14.9" x2="2.6" y2="3.1"></line>
-                    </svg>
-                    Small text
-                </div>
-                <div class="ratio__large">
-                    <svg v-if="sharedState.readabilityTests[0].result" width="17px" height="18px" viewBox="0 0 17 18" stroke="green">
-                        <polyline points="2.8,9.4 6.5,14.1 14.2,3.3 " fill="none"></polyline>
-                    </svg>
-                    <svg v-else width="17" height="18" viewBox="0 0 17 18" stroke="red">
-                        <line x1="2.6" y1="14.9" x2="14.4" y2="3.1"></line>
-                        <line x1="14.4" y1="14.9" x2="2.6" y2="3.1"></line>
-                    </svg>
-                    Large text
-                </div>
-            </div>
-        </div> -->
+        <ColourContrast />
     </div>
 </template>
 
@@ -105,35 +81,4 @@ function updateForegroundColour(colour: string) {
         flex-wrap: wrap;
     }
 }
-
-// .colour-contrast {
-//     grid-column: span 2;
-
-//     @media (min-width: 700px) {
-//         grid-column: span 1;
-//     }
-
-//     &__label {
-//         margin-bottom: 16px;
-//     }
-
-//     &__ratio {
-//         display: grid;
-//         grid-gap: 30px;
-//         grid-template-columns: auto auto auto;
-//         justify-content: space-between;
-
-//         @media (min-width: 700px) {
-//             grid-template-columns: auto auto 1fr;
-//         }
-
-//         .ratio__small, .ratio__large {
-//             svg {
-//                 margin-top: -4px;
-//                 position: relative;
-//                 top: 3px;
-//             }
-//         }
-//     }
-// }
 </style>
