@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { Colour } from '../types/types';
-
 const props = defineProps<{
     class: string;
-    colour: Colour;
+    colourName: string;
 }>();
 
 const emits = defineEmits<{
@@ -13,8 +11,8 @@ const emits = defineEmits<{
 
 <template>
     <div :class="props.class">
-        <button @click="$emit('click', props.colour.hex)" :class="props.colour.name">
-            <span class="sr-only">{{ props.colour.name }}</span>
+        <button @click="$emit('click', props.colourName)" :class="props.colourName">
+            <span class="sr-only">{{ props.colourName }}</span>
         </button>
     </div>
 </template>

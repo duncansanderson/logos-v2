@@ -5,17 +5,19 @@ const store = useColourStore();
 
 const backgroundColour = computed(() => store.backgroundColour);
 const foregroundColour = computed(() => store.foregroundColour);
+const imageBoxClasses = computed(
+    () => `image-box bg-${backgroundColour.value} fg-${foregroundColour.value}`
+);
 </script>
 
 <template>
-    <div class="image-box">
+    <div :class="imageBoxClasses">
         <svg
             id="Download"
             x="0px"
             y="0px"
             viewBox="0 0 2000 2000"
             xml:space="preserve"
-            :style="{ backgroundColor: backgroundColour, color: foregroundColour }"
         >
             <g>
                 <path
@@ -40,6 +42,86 @@ const foregroundColour = computed(() => store.foregroundColour);
     max-height: 436px;
     position: relative;
     width: 100%;
+
+    &.bg-blue-sky svg {
+        background-color: #85b6c5;
+    }
+
+    &.fg-blue-sky svg {
+        color: #85b6c5;
+    }
+
+    &.bg-buddy-gold svg {
+        background-color: #b88a57;
+    }
+
+    &.fg-buddy-gold svg {
+        color: #b88a57;
+    }
+
+    &.bg-calm-blue svg {
+        background-color: #eef4f8;
+    }
+
+    &.fg-calm-blue svg {
+        color: #eef4f8;
+    }
+
+    &.bg-claeys-cream svg {
+        background-color: #f2e4d6;
+    }
+
+    &.fg-claeys-cream svg {
+        color: #f2e4d6;
+    }
+
+    &.bg-heartland-yellow svg {
+        background-color: #f2ba42;
+    }
+
+    &.fg-heartland-yellow svg {
+        color: #f2ba42;
+    }
+
+    &.bg-river-blue svg {
+        background-color: #004d80;
+    }
+
+    &.fg-river-blue svg {
+        color: #004d80;
+    }
+
+    &.bg-rust-belt svg {
+        background-color: #d34e23;
+    }
+
+    &.fg-rust-belt svg {
+        color: #d34e23;
+    }
+
+    &.bg-strato-blue svg {
+        background-color: #1d253c;
+    }
+
+    &.fg-strato-blue svg {
+        color: #1d253c;
+    }
+
+    &.bg-transparent svg {
+        background-color: transparent;
+    }
+
+    &.fg-transparent svg {
+        color: transparent;
+    }
+
+    &.bg-truman-brown svg {
+        background-color: #653727;
+    }
+
+    &.fg-truman-brown svg {
+        color: #653727;
+    }
 }
 
 @media (min-width: 700px) {
