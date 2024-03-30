@@ -24,10 +24,7 @@ function updateForegroundColour(colour: string) {
         <div class="colour-picker">
             <div class="colour-picker__label">Background</div>
             <div class="colour-picker__colours">
-                <template
-                    v-for="colour in COLOURS"
-                    :key="colour.name"
-                >
+                <template v-for="colour in COLOURS" :key="colour.name">
                     <ColourButton
                         :class="[
                             { active: backgroundColour == colour.name },
@@ -43,10 +40,7 @@ function updateForegroundColour(colour: string) {
         <div class="colour-picker">
             <div class="colour-picker__label">Foreground</div>
             <div class="colour-picker__colours">
-                <template
-                    v-for="colour in colourFilter"
-                    :key="`${colour.name}fg`"
-                >
+                <template v-for="colour in colourFilter" :key="`${colour.name}fg`">
                     <ColourButton
                         :class="[
                             { active: foregroundColour == colour.name },
@@ -88,62 +82,29 @@ function updateForegroundColour(colour: string) {
 </template>
 
 <style lang="scss" scoped>
-// @import '../variables.scss';
+.colour-controls {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
 
-// .colour-controls {
-//     display: grid;
-//     grid-gap: 10px;
-//     grid-template-columns: 1fr 1fr;
-// }
+@media (min-width: 700px) {
+    .colour-controls {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+}
 
-// @media (min-width: 700px) {
-//     .colour-controls {
-//         grid-template-columns: 1fr;
-//         grid-template-rows: auto auto;
-//     }
-// }
+.colour-picker {
+    &__label {
+        margin-bottom: 16px;
+    }
 
-// .colour-picker {
-//     &__label {
-//         margin-bottom: 16px;
-//     }
-
-//     &__colours {
-//         display: flex;
-//         flex-wrap: wrap;
-//     }
-
-//     &__colour {
-//         align-items: center;
-//         border: 2px solid transparent;
-//         border-radius: 50%;
-//         display: flex;
-//         height: 70px;
-//         justify-content: center;
-//         width: 70px;
-
-//         &.active {
-//             border: 2px solid black;
-//         }
-
-//         button {
-//             border: none;
-//             border-radius: 50%;
-//             cursor: pointer;
-//             height: 60px;
-//             width: 60px;
-
-//             &:focus {
-//                 outline: 0;
-//                 border: 2px solid blue;
-//             }
-
-//             &.transparent {
-//                 background-image: url(../assets/transparent.png)
-//             }
-//         }
-//     }
-// }
+    &__colours {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
 
 // .colour-contrast {
 //     grid-column: span 2;
