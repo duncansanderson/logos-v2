@@ -1,5 +1,4 @@
-import { beforeEach, describe, it, expect } from 'vitest';
-
+import { beforeEach, describe, expect, it } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
 import ColourButton from '../ColourButton.vue';
 
@@ -19,8 +18,6 @@ let wrapper: any;
 beforeEach(() => {
     wrapper = factoryShallowMount();
 });
-
-console.log(typeof factoryShallowMount())
 
 describe('ColourButton', () => {
     it('should render a colour button', () => {
