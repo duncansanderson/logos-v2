@@ -10,7 +10,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-    <div :class="props.class">
+    <div :class="props.class" data-test="colour-button">
         <button @click="$emit('click', props.colourName)" :class="props.colourName">
             <span class="sr-only">{{ props.colourName }}</span>
         </button>

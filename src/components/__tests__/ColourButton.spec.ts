@@ -1,24 +1,51 @@
-import { describe, it, expect } from 'vitest';
+import { beforeEach, describe, it, expect } from 'vitest';
 
-import { mount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import ColourButton from '../ColourButton.vue';
 
-const factoryMount = () => mount(ColourButton, {
-    props: {
-        class: 'test',
-        colour: {
-            name: 'blue-sky',
-            hex: '#85b6c5',
-            background: true,
-            matches: ['#1d253c', '#653727', 'transparent'],
+const propClass = 'colour-picker__colour';
+const propColourName = 'red';
+
+const factoryShallowMount = (propsData: any = {}) =>
+    shallowMount(ColourButton, {
+        propsData: {
+            class: propClass,
+            'colour-name': propColourName,
+            ...propsData,
         },
-    },
+    });
+
+let wrapper: any;
+beforeEach(() => {
+    wrapper = factoryShallowMount();
 });
 
-describe('ColourButton', () => {
-    it('renders a button', () => {
-        const wrapper = factoryMount();
+console.log(typeof factoryShallowMount())
 
-        expect(wrapper.text()).toContain('blue-sky');
+describe('ColourButton', () => {
+    it('should render a colour button', () => {
+        const colourButton = wrapper.find('div[data-test=colour-button]');
+
+        expect(colourButton.exists()).toBe(true);
+    });
+
+    describe(':props', () => {
+        it('should render `class` passed to component'),
+            () => {
+                expect(wrapper.text()).toContain(propClass);
+            };
+
+        it('should render `colour-name` paseed to component', () => {
+            expect(wrapper.text()).toContain(propColourName);
+        });
+    });
+
+    describe(':emits', () => {
+        it('should emit `click` when the button is clicked', () => {
+            const colourButton = wrapper.find('button');
+            colourButton.trigger('click');
+
+            expect(wrapper.emitted().click).toBeTruthy();
+        });
     });
 });
