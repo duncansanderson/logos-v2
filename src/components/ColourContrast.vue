@@ -12,7 +12,11 @@ const largeReadability = computed(() => colourStore.readabilityTests[0].result);
 </script>
 
 <template>
-    <div class="colour-contrast" v-if="backgroundColour !== 'transparent'">
+    <div
+        class="colour-contrast"
+        v-if="backgroundColour !== 'transparent'"
+        data-test="colour-contrast"
+    >
         <div class="colour-contrast__label">Colour contrast</div>
         <div class="colour-contrast__ratio">
             <div class="ratio__value">{{ contrastRatio }}</div>
