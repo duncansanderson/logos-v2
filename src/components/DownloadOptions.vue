@@ -25,10 +25,6 @@ const jpgDownloadLink = computed(() => modalStore.jpgDownloadLink);
 
 const { backgroundColour, foregroundColour } = storeToRefs(colourStore);
 
-const openModal = () => {
-    showModal.value = true;
-};
-
 const updateSize = () => modalStore.updateSize(selectedSize.value);
 
 const handleKeyup = () => {
@@ -41,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="image-download__options">
+    <div class="image-download__options" data-test="download-options">
         <label for="size">Size</label>
         <select name="size" id="size" v-model="selectedSize" @change="updateSize">
             <option v-for="size in PRESET_SIZES" :key="size.name" :value="size.name">
