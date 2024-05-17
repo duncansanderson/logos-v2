@@ -106,3 +106,34 @@ export const COLOURS = [
         ],
     },
 ];
+
+export const PRESET_SIZES = [
+    {
+        name: 'Custom',
+    },
+    {
+        name: 'Square (2000x2000)',
+        height: 2000,
+        width: 2000,
+    },
+    {
+        name: 'Desktop (5120x2880)',
+        height: 2880,
+        width: 5120,
+    },
+    {
+        name: 'Mobile (1080x1920)',
+        height: 1920,
+        width: 1080,
+    },
+    {
+        name: 'Banner (4500x1500)',
+        height: 2000,
+        width: 4500,
+    },
+];
+
+export const MODAL_ERROR_MESSAGES = {
+    'image-too-big': 'Too big. Try a size smaller than 10,000px',
+    'image-too-small': 'Too small. Try a size larger than 50px',
+};
