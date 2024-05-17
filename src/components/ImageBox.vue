@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed} from 'vue';
 import IconPete from './icons/IconPete.vue';
+import DownloadSettings from './DownloadSettings.vue';
 import { useColourStore } from '../stores/colour';
-const store = useColourStore();
 
-const backgroundColour = computed(() => store.backgroundColour);
-const foregroundColour = computed(() => store.foregroundColour);
+const colourStore = useColourStore();
+
+const backgroundColour = computed(() => colourStore.backgroundColour);
+const foregroundColour = computed(() => colourStore.foregroundColour);
 const imageBoxClasses = computed(
     () => `image-box bg-${backgroundColour.value} fg-${foregroundColour.value}`
 );
 </script>
 
 <template>
-    <div :class="imageBoxClasses">
-        <IconPete />
+    <div :class="imageBoxClasses" data-test="image-box">
+        <div class="image-box__svg">
+            <IconPete />
+        </div>
+        <DownloadSettings />
     </div>
 </template>
 
