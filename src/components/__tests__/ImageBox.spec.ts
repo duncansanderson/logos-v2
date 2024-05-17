@@ -5,15 +5,16 @@ import { createPinia } from 'pinia';
 import ImageBox from '../ImageBox.vue';
 import { useColourStore } from '@/stores/colour';
 
-const factoryShallowMount = () => shallowMount(ImageBox, {
-    global: {
-        plugins: [
-            createTestingPinia({
-                createSpy: vi.fn,
-            }),
-        ],
-    },
-});
+const factoryShallowMount = () =>
+    shallowMount(ImageBox, {
+        global: {
+            plugins: [
+                createTestingPinia({
+                    createSpy: vi.fn,
+                }),
+            ],
+        },
+    });
 
 const colourStore = useColourStore(createPinia());
 
