@@ -41,6 +41,7 @@ export const useColourStore = defineStore('colourStore', () => {
         );
     }
 
+    // Get the hex value of a colour.
     function getColourHex(colourName: string) {
         const colour = COLOURS.find((colour) => colour.name === colourName);
         return colour?.hex;
@@ -82,6 +83,7 @@ export const useColourStore = defineStore('colourStore', () => {
         foregroundColour,
         readabilityTests,
         colourFilter,
+        getColourHex,
         updateColours,
         updateForegroundColour,
     };
