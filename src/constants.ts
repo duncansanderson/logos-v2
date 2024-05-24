@@ -137,3 +137,9 @@ export const MODAL_ERROR_MESSAGES = {
     'image-too-big': 'Too big. Try a size smaller than 10,000px',
     'image-too-small': 'Too small. Try a size larger than 50px',
 };
+
+export const FILE_TYPES = [
+    'svg',
+    'png',
+    'jpeg',
+];
