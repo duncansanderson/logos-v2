@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed} from 'vue';
+import { computed } from 'vue';
 import IconPete from './icons/IconPete.vue';
 import DownloadOptions from './DownloadOptions.vue';
 import { useColourStore } from '../stores/colour';
