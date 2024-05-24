@@ -130,7 +130,7 @@ export const PRESET_SIZES = [
     },
     {
         name: 'Banner (4500x1500)',
-        height: 2000,
+        height: 1500,
         width: 4500,
     },
 ];

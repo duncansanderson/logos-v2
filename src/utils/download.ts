@@ -1,3 +1,5 @@
+import { useColourStore } from "@/stores/colour";
+
 // Set the desired download size.
 const setNewSize = (data: string, height: number, width: number) => {
     let x = 0;
@@ -25,9 +27,13 @@ const setNewSize = (data: string, height: number, width: number) => {
 
 // Add xmlns namespace and add style attributes to the SVG.
 const addNameSpace = (data: string) => {
-    const backgroundColour = 'rgb(242, 186, 66)';
-    const colour = 'rgb(0, 77, 128)';
-    const style = `style="background-color:${backgroundColour};color:${colour};width=100%;height:auto"`;
+    // const backgroundColour = 'rgb(242, 186, 66)';
+    // const colour = 'rgb(0, 77, 128)';
+    const colourStore = useColourStore();
+    const backgroundColour = colourStore.getColourHex(colourStore.backgroundColour);
+    const foregroundColour = colourStore.getColourHex(colourStore.foregroundColour);
+    console.log('colour', backgroundColour, foregroundColour);
+    const style = `style="background-color:${backgroundColour};color:${foregroundColour};width=100%;height:auto"`;
 
     if (data.indexOf('http://www.w3.org/2000/svg') < 0) {
         data = data.replace(/<svg/g, `<svg xmlns="http://www.w3.org/2000/svg" ${style}`);
@@ -47,7 +53,6 @@ const encodeSVG = (data: string) => {
 };
 
 const createDownloadLink = async (imageHeight: number, imageWidth: number, fileType: string) => {
-    console.log('create', fileType)
     const svg = document.querySelector('.image-box__svg')?.innerHTML;
 
     if (!svg) return;
@@ -56,13 +61,27 @@ const createDownloadLink = async (imageHeight: number, imageWidth: number, fileT
     const namespaced = addNameSpace(adjusted);
     const escaped = encodeSVG(namespaced);
 
-    const svgDownloadLink = `data:image/svg+xml,${escaped}`;
-    console.log('create2')
-    if (fileType === 'svg') {
-        return svgDownloadLink;
-    } else if (fileType === 'png' || fileType === 'jpeg') {
-        console.log('filetype')
-        // Create png and jpg links.
+    return `data:image/svg+xml,${escaped}`;
+}
+
+const downloadFile = (downloadLink: string) => {
+
+    // Download the file.
+    const link = document.createElement('a');
+    link.href = downloadLink;
+    link.download = `icon`;
+    link.setAttribute('target', '_blank');
+    link.click();
+    link.remove();
+}
+
+export const download = async (imageHeight: number, imageWidth: number, fileType: string) => {
+    const downloadLink = await createDownloadLink(imageHeight, imageWidth, fileType);
+
+    if (downloadLink && fileType === 'svg') {
+        downloadFile(downloadLink);
+    } else if (downloadLink && (fileType === 'png' || fileType === 'jpeg')) {
+        // Create png and jpeg links.
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
@@ -70,21 +89,11 @@ const createDownloadLink = async (imageHeight: number, imageWidth: number, fileT
         canvas.width = imageWidth;
 
         const image = new Image();
-        image.src = svgDownloadLink;
+        image.src = downloadLink;
 
-        // let downloadLink = '';
-        ctx?.drawImage(image, 0, 0);
-        return canvas.toDataURL(`image/${fileType}`);
-    //     image.onload = () => {
-    //         console.log('image');
-    //         ctx?.drawImage(image, 0, 0);
-    //         return canvas.toDataURL(`image/${fileType}`);
-    //     };
+        image.onload = () => {
+            ctx?.drawImage(image, 0, 0);
+            downloadFile(canvas.toDataURL(`image/${fileType}`));
+        };
     }
-}
-
-export const download = async (imageHeight: number, imageWidth: number, fileType: string) => {
-    console.log('download');
-    const downloadLink = await createDownloadLink(imageHeight, imageWidth, fileType);
-    console.log('downloadLink', downloadLink);
 }
