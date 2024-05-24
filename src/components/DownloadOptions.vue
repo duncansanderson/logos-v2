@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import { COLOURS, FILE_TYPES, PRESET_SIZES } from '@/constants';
+import { ref } from 'vue';
+import { FILE_TYPES, PRESET_SIZES } from '@/constants';
 import { download } from '../utils/download';
 
 const imageHeight = ref(2000);
