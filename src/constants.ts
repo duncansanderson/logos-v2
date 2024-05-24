@@ -110,6 +110,8 @@ export const COLOURS = [
 export const PRESET_SIZES = [
     {
         name: 'Custom',
+        height: 0,
+        width: 0,
     },
     {
         name: 'Square (2000x2000)',

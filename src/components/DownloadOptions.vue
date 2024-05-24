@@ -1,92 +1,98 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { BModal } from 'bootstrap-vue-next';
-import { COLOURS, PRESET_SIZES } from '@/constants';
-import { useColourStore } from '@/stores/colour';
-import { useModalStore } from '@/stores/modal';
-import { storeToRefs } from 'pinia';
+import { COLOURS, FILE_TYPES, PRESET_SIZES } from '@/constants';
+import { download } from '../utils/download';
 
-const colourStore = useColourStore();
-const modalStore = useModalStore();
+const imageHeight = ref(2000);
+const imageWidth = ref(2000);
+const selectedFileType = ref('');
+const selectedSize = ref(PRESET_SIZES[1].name);
 
-const showModal = ref(false);
-const selectedSize = ref('Square (2000x2000)');
-// const imageTooBig = ref(false);
-// const imageTooSmall = ref(false);
-// const pngDownloadLink = ref('#');
-// const jpgDownloadLink = ref('#');
-// const canvas = ref(null);
+const updateSize = () => {
+    const selected = PRESET_SIZES.find((size) => size.name === selectedSize.value);
+    if (!selected) return;
 
-const imageHeight = computed(() => modalStore.imageHeight);
-const imageWidth = computed(() => modalStore.imageWidth);
-const svgDownloadLink = computed(() => modalStore.svgDownloadLink);
-const pngDownloadLink = computed(() => modalStore.pngDownloadLink);
-const jpgDownloadLink = computed(() => modalStore.jpgDownloadLink);
-
-const { backgroundColour, foregroundColour } = storeToRefs(colourStore);
-
-const updateSize = () => modalStore.updateSize(selectedSize.value);
-
-const handleKeyup = () => {
-    console.log('handle keyup');
+    imageHeight.value = selected.height;
+    imageWidth.value = selected.width;
 };
 
-onMounted(() => {
-    modalStore.createDownloadLinks();
-});
+const updateSelectedSize = () => {
+    const selected = PRESET_SIZES.find((size) =>
+        size.height === imageHeight.value && size.width === imageWidth.value
+    );
+
+    if (!selected) {
+        selectedSize.value = PRESET_SIZES[0].name;
+    } else {
+        selectedSize.value = selected.name;
+    }
+}
+
+const downloadFile = () => {
+    if (selectedFileType.value === '') return; // Show error message.
+    // TODO: validate form before download.
+
+    download(imageHeight.value, imageWidth.value, selectedFileType.value);
+}
 </script>
 
 <template>
-    <div class="image-download__options" data-test="download-options">
-        <label for="size">Size</label>
-        <select name="size" id="size" v-model="selectedSize" @change="updateSize">
-            <option v-for="size in PRESET_SIZES" :key="size.name" :value="size.name">
-                {{ size.name }}
-            </option>
-        </select>
-        <div class="image-size-controls">
-            <label for="width-adjust">
-                W
-                <input type="text" id="width-adjust" :value="imageWidth" @keyup="handleKeyup" />
-                px
-            </label>
-            <label for="height-adjust">
-                H
-                <input type="text" id="height-adjust" :value="imageHeight" @keyup="handleKeyup" />
-                px
-            </label>
-        </div>
+    <div
+        class="image-download__options"
+        data-test="download-options"
+    >
+        <form @submit.prevent="downloadFile">
+            <label for="size">Size</label>
+            <select
+                name="size"
+                id="size"
+                v-model="selectedSize"
+                @change="updateSize"
+            >
+                <option
+                    v-for="size in PRESET_SIZES"
+                    :key="size.name"
+                    :value="size.name"
+                >
+                    {{ size.name }}
+                </option>
+            </select>
 
-        <!-- <div class="size-error" v-if="imageTooBig">
-            Too big. Try a size smaller than 10,000px
-        </div>
-        <div class="size-error" v-if="imageTooSmall">
-            Too small. Try a size larger than 50px
-        </div> -->
+            <div class="image-size-controls">
+                <label for="height-adjust">Height(px):</label>
+                <input
+                    type="number"
+                    id="height-adjust"
+                    v-model="imageHeight"
+                    @change="updateSelectedSize"
+                />
 
-        <div class="image-download_buttons">
-            <a
-                :href="svgDownloadLink"
-                class="image-download__button svg-download"
-                download="logo.svg"
+                <label for="width-adjust">Width(px):</label>
+                <input
+                    type="number"
+                    id="width-adjust"
+                    v-model="imageWidth"
+                    @change="updateSelectedSize"
+                />
+            </div>
+
+            <label for="size">File type</label>
+            <select
+                name="fileType"
+                id="fileType"
+                v-model="selectedFileType"
             >
-                SVG
-            </a>
-            <a
-                :href="pngDownloadLink"
-                class="image-download__button png-download"
-                download="logo.png"
-            >
-                PNG
-            </a>
-            <a
-                v-if="backgroundColour != 'transparent'"
-                :href="jpgDownloadLink"
-                class="image-download__button jpg-download"
-                download="logo.jpg"
-            >
-                JPG
-            </a>
-        </div>
+                <option value="">Select file type</option>
+                <option
+                    v-for="(type, index) in FILE_TYPES"
+                    :key="index"
+                    :value="type"
+                >
+                    {{ type }}
+                </option>
+            </select>
+
+            <input type="submit" value="Download" />
+        </form>
     </div>
 </template>
