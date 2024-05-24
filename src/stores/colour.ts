@@ -82,6 +82,7 @@ export const useColourStore = defineStore('colourStore', () => {
         contrastRatio,
         foregroundColour,
         readabilityTests,
+        calcColourRatio,
         colourFilter,
         getColourHex,
         updateColours,

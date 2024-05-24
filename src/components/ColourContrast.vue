@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import IconTick from './icons/IconTick.vue';
 import IconCross from './icons/IconCross.vue';
 import { useColourStore } from '../stores/colour';
@@ -9,6 +9,10 @@ const backgroundColour = computed(() => colourStore.backgroundColour);
 const contrastRatio = computed(() => colourStore.contrastRatio);
 const smallReadability = computed(() => colourStore.readabilityTests[1].result);
 const largeReadability = computed(() => colourStore.readabilityTests[0].result);
+
+onMounted(() => {
+    colourStore.calcColourRatio();
+});
 </script>
 
 <template>
