@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import ColourPicker from './components/ColourPicker.vue';
 import ImageBox from './components/ImageBox.vue';
+import IconPete from './components/icons/IconPete.vue';
 </script>
 
 <template>
     <main>
-        <ImageBox />
+        <ImageBox>
+            <template v-slot:icon>
+                <IconPete />
+            </template>
+        </ImageBox>
+
         <ColourPicker />
     </main>
 </template>

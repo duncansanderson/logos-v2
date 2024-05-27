@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import IconPete from './icons/IconPete.vue';
 import DownloadOptions from './DownloadOptions.vue';
 import { useColourStore } from '../stores/colour';
 
@@ -14,9 +13,12 @@ const imageBoxClasses = computed(
 </script>
 
 <template>
-    <div :class="imageBoxClasses" data-test="image-box">
-        <div class="image-box__svg">
-            <IconPete />
+    <div>
+        <div :class="imageBoxClasses" data-test="image-box">
+            <div class="image-box__svg">
+                <!-- <IconPete /> -->
+                <slot name="icon" />
+            </div>
         </div>
         <DownloadOptions />
     </div>
@@ -31,9 +33,13 @@ const imageBoxClasses = computed(
     max-height: 436px;
     position: relative;
     width: 100%;
+}
+</style>
 
+<style scss>
+.image-box {
     &.bg-blue-sky svg {
-        background-color: var(--blue-sky);
+    background-color: var(--blue-sky);
     }
 
     &.fg-blue-sky svg {
