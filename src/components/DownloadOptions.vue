@@ -3,6 +3,10 @@ import { ref } from 'vue';
 import { FILE_TYPES, PRESET_SIZES } from '@/constants';
 import { download } from '../utils/download';
 
+const emit = defineEmits<{
+  (e: 'update', height: number, width: number): void
+}>();
+
 const imageHeight = ref(2000);
 const imageWidth = ref(2000);
 const selectedFileType = ref('');
@@ -14,6 +18,8 @@ const updateSize = () => {
 
     imageHeight.value = selected.height;
     imageWidth.value = selected.width;
+
+    emit('update', imageHeight.value, imageWidth.value);
 };
 
 const updateSelectedSize = () => {
@@ -26,6 +32,8 @@ const updateSelectedSize = () => {
     } else {
         selectedSize.value = selected.name;
     }
+
+    emit('update', imageHeight.value, imageWidth.value);
 }
 
 const downloadFile = () => {
@@ -42,56 +50,59 @@ const downloadFile = () => {
         data-test="download-options"
     >
         <form @submit.prevent="downloadFile">
-            <label for="size">Size</label>
-            <select
-                name="size"
-                id="size"
-                v-model="selectedSize"
-                @change="updateSize"
-            >
-                <option
-                    v-for="size in PRESET_SIZES"
-                    :key="size.name"
-                    :value="size.name"
+            <fieldset>
+                <legend>Download options</legend>
+
+                <label for="size">Size</label>
+                <select
+                    name="size"
+                    id="size"
+                    v-model="selectedSize"
+                    @change="updateSize"
                 >
-                    {{ size.name }}
-                </option>
-            </select>
+                    <option
+                        v-for="size in PRESET_SIZES"
+                        :key="size.name"
+                        :value="size.name"
+                    >
+                        {{ size.name }}
+                    </option>
+                </select>
 
-            <div class="image-size-controls">
-                <label for="height-adjust">Height(px):</label>
-                <input
-                    type="number"
-                    id="height-adjust"
-                    v-model="imageHeight"
-                    @change="updateSelectedSize"
-                />
+                <div class="image-size-controls">
+                    <label for="height-adjust">Height(px):</label>
+                    <input
+                        type="number"
+                        id="height-adjust"
+                        v-model="imageHeight"
+                        @change="updateSelectedSize"
+                    />
 
-                <label for="width-adjust">Width(px):</label>
-                <input
-                    type="number"
-                    id="width-adjust"
-                    v-model="imageWidth"
-                    @change="updateSelectedSize"
-                />
-            </div>
+                    <label for="width-adjust">Width(px):</label>
+                    <input
+                        type="number"
+                        id="width-adjust"
+                        v-model="imageWidth"
+                        @change="updateSelectedSize"
+                    />
+                </div>
 
-            <label for="size">File type</label>
-            <select
-                name="fileType"
-                id="fileType"
-                v-model="selectedFileType"
-            >
-                <option value="">Select file type</option>
-                <option
-                    v-for="(type, index) in FILE_TYPES"
-                    :key="index"
-                    :value="type"
+                <label for="size">File type</label>
+                <select
+                    name="fileType"
+                    id="fileType"
+                    v-model="selectedFileType"
                 >
-                    {{ type }}
-                </option>
-            </select>
-
+                    <option value="">Select file type</option>
+                    <option
+                        v-for="(type, index) in FILE_TYPES"
+                        :key="index"
+                        :value="type"
+                    >
+                        {{ type }}
+                    </option>
+                </select>
+            </fieldset>
             <input type="submit" value="Download" />
         </form>
     </div>

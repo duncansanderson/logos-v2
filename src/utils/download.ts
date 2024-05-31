@@ -27,18 +27,18 @@ const setNewSize = (data: string, height: number, width: number) => {
 
 // Add xmlns namespace and add style attributes to the SVG.
 const addNameSpace = (data: string) => {
-    // const backgroundColour = 'rgb(242, 186, 66)';
-    // const colour = 'rgb(0, 77, 128)';
     const colourStore = useColourStore();
     const backgroundColour = colourStore.getColourHex(colourStore.backgroundColour);
     const foregroundColour = colourStore.getColourHex(colourStore.foregroundColour);
-    console.log('colour', backgroundColour, foregroundColour);
+
     const style = `style="background-color:${backgroundColour};color:${foregroundColour};width=100%;height:auto"`;
 
     if (data.indexOf('http://www.w3.org/2000/svg') < 0) {
-        data = data.replace(/<svg/g, `<svg xmlns="http://www.w3.org/2000/svg" ${style}`);
+        data = data.replace(/<svg/g, '<svg xmlns="http://www.w3.org/2000/svg"');
     }
 
+    // Remove height and width attributes from the SVG.
+    data = data.replace(/style=".+"/, style);
     return data;
 };
 

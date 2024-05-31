@@ -1,26 +1,33 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import DownloadOptions from './DownloadOptions.vue';
 import { useColourStore } from '../stores/colour';
+import displaySize from '@/utils/displaySize';
+import IconPete from './icons/IconPete.vue';
 
 const colourStore = useColourStore();
+
+const iconStyle = ref(displaySize(2000, 2000));
 
 const backgroundColour = computed(() => colourStore.backgroundColour);
 const foregroundColour = computed(() => colourStore.foregroundColour);
 const imageBoxClasses = computed(
     () => `image-box bg-${backgroundColour.value} fg-${foregroundColour.value}`
 );
+
+const updateIconSize = (height:number, width:number) => {
+    iconStyle.value = displaySize(height, width);
+}
 </script>
 
 <template>
     <div>
         <div :class="imageBoxClasses" data-test="image-box">
             <div class="image-box__svg">
-                <!-- <IconPete /> -->
-                <slot name="icon" />
+                <IconPete :style="iconStyle" />
             </div>
         </div>
-        <DownloadOptions />
+        <DownloadOptions @update="updateIconSize" />
     </div>
 </template>
 
@@ -33,6 +40,13 @@ const imageBoxClasses = computed(
     max-height: 436px;
     position: relative;
     width: 100%;
+}
+
+.image-box__svg {
+    align-items: center;
+    display: flex;
+    height: 425px;
+    justify-content: center;
 }
 </style>
 
