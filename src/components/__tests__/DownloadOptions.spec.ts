@@ -61,5 +61,28 @@ describe('Download options', () => {
             expect(wrapper.vm.selectedSize).toBe(PRESET_SIZES[0].name);
         });
     });
+
+    describe(':emits', () => {
+        it('should emit `update` when an image size is selected', async () => {
+            const iconSizeSelect = wrapper.find('#size');
+            await iconSizeSelect.setValue(PRESET_SIZES[2].name);
+
+            expect(wrapper.emitted()).toHaveProperty('update');
+        });
+
+        it('should emit `update` when the image height is changed', async () => {
+            const iconHeight = wrapper.find('#height-adjust');
+            await iconHeight.setValue(2001);
+
+            expect(wrapper.emitted()).toHaveProperty('update');
+        });
+
+        it('should emit `update` when the image width is changed', async () => {
+            const iconWidth = wrapper.find('#width-adjust');
+            await iconWidth.setValue(2001);
+
+            expect(wrapper.emitted()).toHaveProperty('update');
+        });
+    });
 })
 
