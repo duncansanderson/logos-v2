@@ -25,7 +25,10 @@ function updateForegroundColour(colour: string) {
         <div class="colour-picker">
             <div class="colour-picker__label">Background</div>
             <div class="colour-picker__colours">
-                <template v-for="colour in COLOURS" :key="colour.name">
+                <template
+                    v-for="colour in COLOURS"
+                    :key="colour.name"
+                >
                     <ColourButton
                         :class="[
                             { active: backgroundColour == colour.name },
@@ -41,7 +44,10 @@ function updateForegroundColour(colour: string) {
         <div class="colour-picker">
             <div class="colour-picker__label">Foreground</div>
             <div class="colour-picker__colours">
-                <template v-for="colour in colourFilter" :key="`${colour.name}fg`">
+                <template
+                    v-for="colour in colourFilter"
+                    :key="`${colour.name}fg`"
+                >
                     <ColourButton
                         :class="[
                             { active: foregroundColour == colour.name },

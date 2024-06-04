@@ -27,10 +27,9 @@ describe('ColourButton', () => {
     });
 
     describe(':props', () => {
-        it('should render `class` passed to component'),
-            () => {
-                expect(wrapper.text()).toContain(propClass);
-            };
+        it('should render `class` passed to component'), () => {
+            expect(wrapper.text()).toContain(propClass);
+        };
 
         it('should render `colour-name` paseed to component', () => {
             expect(wrapper.text()).toContain(propColourName);

@@ -103,7 +103,10 @@ const downloadFile = () => {
                     </option>
                 </select>
             </fieldset>
-            <input type="submit" value="Download" />
+            <input
+                type="submit"
+                value="Download"
+            />
         </form>
     </div>
 </template>

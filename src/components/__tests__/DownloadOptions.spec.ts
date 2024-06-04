@@ -1,5 +1,6 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi, mockReturnValueOnce } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import DownloadOptions from '../DownloadOptions.vue';
 import { PRESET_SIZES } from '@/constants';
 
@@ -59,6 +60,17 @@ describe('Download options', () => {
             await iconWidth.setValue(2001);
 
             expect(wrapper.vm.selectedSize).toBe(PRESET_SIZES[0].name);
+        });
+
+        it('should call the `downloadFile` method when the form is submitted', async () => {
+            const mockDownloadFile = vi.spyOn(wrapper.vm, 'downloadFile');
+
+            const downloadForm = wrapper.find('form');
+            await downloadForm.trigger('submit');
+
+            setTimeout(() => {
+                expect(mockDownloadFile).toHaveBeenCalled();
+            }, 500);
         });
     });
 
