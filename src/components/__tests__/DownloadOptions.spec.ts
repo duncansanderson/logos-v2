@@ -1,6 +1,5 @@
-import { beforeEach, describe, expect, it, vi, mockReturnValueOnce } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { shallowMount } from '@vue/test-utils';
-import { nextTick } from 'vue';
 import DownloadOptions from '../DownloadOptions.vue';
 import { PRESET_SIZES } from '@/constants';
 
