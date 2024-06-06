@@ -5,31 +5,35 @@ import { useColourStore } from '@/stores/colour';
 import ColourButton from './ColourButton.vue';
 import ColourContrast from './ColourContrast.vue';
 
-const store = useColourStore();
+const colourStore = useColourStore();
 
-const backgroundColour = computed(() => store.backgroundColour);
-const foregroundColour = computed(() => store.foregroundColour);
-const colourFilter = computed(() => store.colourFilter());
+const backgroundColour = computed(() => colourStore.backgroundColour);
+const foregroundColour = computed(() => colourStore.foregroundColour);
+const colourFilter = computed(() => colourStore.colourFilter());
 
 function updateColours(colour: string) {
-    store.updateColours(colour);
+    colourStore.updateColours(colour);
 }
 
 function updateForegroundColour(colour: string) {
-    store.updateForegroundColour(colour);
+    colourStore.updateForegroundColour(colour);
 }
 </script>
 
 <template>
-    <div class="colour-controls">
+    <div
+        class="colour-controls"
+        data-test="colour-picker"
+    >
         <div class="colour-picker">
             <div class="colour-picker__label">Background</div>
             <div class="colour-picker__colours">
                 <template
-                    v-for="colour in COLOURS"
+                    v-for="(colour, index) in COLOURS"
                     :key="colour.name"
                 >
                     <ColourButton
+                        :id="`colour-picker__backgroundColour-${index}`"
                         :class="[
                             { active: backgroundColour == colour.name },
                             'colour-picker__colour',
@@ -45,10 +49,11 @@ function updateForegroundColour(colour: string) {
             <div class="colour-picker__label">Foreground</div>
             <div class="colour-picker__colours">
                 <template
-                    v-for="colour in colourFilter"
+                    v-for="(colour, index) in colourFilter"
                     :key="`${colour.name}fg`"
                 >
                     <ColourButton
+                        :id="`colour-picker__forgroundColour-${index}`"
                         :class="[
                             { active: foregroundColour == colour.name },
                             'colour-picker__colour',
