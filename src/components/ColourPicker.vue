@@ -26,7 +26,7 @@ function updateForegroundColour(colour: string) {
         data-test="colour-picker"
     >
         <div class="colour-picker">
-            <div class="colour-picker__label">Background</div>
+            <h2 class="colour-picker__label">Background colour</h2>
             <div class="colour-picker__colours">
                 <template
                     v-for="(colour, index) in COLOURS"
@@ -34,9 +34,9 @@ function updateForegroundColour(colour: string) {
                 >
                     <ColourButton
                         :id="`colour-picker__backgroundColour-${index}`"
+                        class="colour-picker__colour"
                         :class="[
-                            { active: backgroundColour == colour.name },
-                            'colour-picker__colour',
+                            backgroundColour === colour.name ? 'active' : '',
                         ]"
                         v-if="colour.background"
                         :colour-name="colour.name"
@@ -46,7 +46,7 @@ function updateForegroundColour(colour: string) {
             </div>
         </div>
         <div class="colour-picker">
-            <div class="colour-picker__label">Foreground</div>
+            <h2 class="colour-picker__label">Foreground colour</h2>
             <div class="colour-picker__colours">
                 <template
                     v-for="(colour, index) in colourFilter"
@@ -54,9 +54,9 @@ function updateForegroundColour(colour: string) {
                 >
                     <ColourButton
                         :id="`colour-picker__forgroundColour-${index}`"
+                        class="colour-picker__colour"
                         :class="[
-                            { active: foregroundColour == colour.name },
-                            'colour-picker__colour',
+                            foregroundColour === colour.name ? 'active' : '',
                         ]"
                         :colour-name="colour.name"
                         @click="updateForegroundColour"

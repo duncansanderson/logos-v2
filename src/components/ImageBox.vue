@@ -18,6 +18,14 @@ const imageBoxClasses = computed(
 const updateIconSize = (height:number, width:number) => {
     iconStyle.value = displaySize(height, width);
 }
+
+// Expose computed functions so that testing can access them.
+defineExpose({
+    backgroundColour,
+    foregroundColour,
+    imageBoxClasses,
+    updateIconSize,
+})
 </script>
 
 <template>

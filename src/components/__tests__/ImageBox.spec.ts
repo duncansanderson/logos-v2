@@ -4,7 +4,6 @@ import { createTestingPinia } from '@pinia/testing';
 import { createPinia } from 'pinia';
 import ImageBox from '../ImageBox.vue';
 import { useColourStore } from '@/stores/colour';
-import DownloadOptions from '../DownloadOptions.vue';
 
 const factoryShallowMount = () =>
     shallowMount(ImageBox, {

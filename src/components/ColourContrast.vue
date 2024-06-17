@@ -21,7 +21,7 @@ onMounted(() => {
         v-if="backgroundColour !== 'transparent'"
         data-test="colour-contrast"
     >
-        <div class="colour-contrast__label">Colour contrast</div>
+        <h2 class="colour-contrast__label">Colour contrast</h2>
         <div class="colour-contrast__ratio">
             <div class="ratio__value">{{ contrastRatio }}</div>
             <div class="ratio__small">

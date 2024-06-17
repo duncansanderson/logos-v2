@@ -2,12 +2,13 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import tinycolor from 'tinycolor2';
 import { COLOURS } from '@/constants';
+import type { ReadabilityTest } from '../types/types';
 
 export const useColourStore = defineStore('colourStore', () => {
     const backgroundColour = ref('blue-sky');
     const foregroundColour = ref('strato-blue');
-    const contrastRatio = ref(0);
-    const readabilityTests = ref([
+    const contrastRatio = ref('');
+    const readabilityTests = ref<ReadabilityTest[]>([
         {
             name: 'AA large',
             level: 'AA',
@@ -66,6 +67,8 @@ export const useColourStore = defineStore('colourStore', () => {
     function calcColourRatio() {
         const backgroundHex = getColourHex(backgroundColour.value);
         const foregroundHex = getColourHex(foregroundColour.value);
+
+        if (!backgroundHex || !foregroundHex) return;
 
         contrastRatio.value = tinycolor.readability(foregroundHex, backgroundHex).toFixed(1);
 

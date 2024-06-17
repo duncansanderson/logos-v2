@@ -145,3 +145,13 @@ export const FILE_TYPES = [
     'png',
     'jpeg',
 ];
+
+export const CONTRAST_LEVELS = [
+    'AA',
+    'AAA'
+] as const;
+
+export const CONTRAST_SIZES = [
+    'large',
+    'small',
+] as const;
